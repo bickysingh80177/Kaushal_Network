@@ -10,7 +10,7 @@ const InputWithoutLabel = ({
   return (
     <>
       <input
-        className="h-10 p-2 rounded-sm border-slate-500 outline-none m-2"
+        className="h-10 p-2 rounded-sm border-slate-500 outline-none m-2 border-b-2 border-b-orange-950"
         type={type}
         id={name}
         name={name}
