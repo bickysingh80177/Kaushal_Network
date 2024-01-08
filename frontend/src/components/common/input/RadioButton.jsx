@@ -1,8 +1,16 @@
-const RadioButton = ({ label, id, name, value, options }) => {
+const RadioButton = ({
+  name,
+  value,
+  options,
+  readOnly = false,
+  touched = {},
+  errors = {},
+  handleInputChange,
+  handleBlur = {},
+}) => {
   return (
     <>
-      <h3 className="mb-4 font-semibold text-gray-900">{label}</h3>
-      <ul className="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg">
+      <ul className="w-48 text-sm font-medium text-gray-900 border border-gray-200 rounded-lg">
         {options.map((option) => (
           <li
             className="w-full border-b border-gray-200 rounded-t-lg"
@@ -10,15 +18,19 @@ const RadioButton = ({ label, id, name, value, options }) => {
           >
             <div className="flex items-center ps-3">
               <input
-                id="list-radio-license"
+                id={option.value}
                 type="radio"
                 value={option.value}
-                name="list-radio"
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+                name={name}
+                className="w-4 text-blue-600 bg-gray-100 border-gray-300"
+                defaultChecked={value === option.value}
+                onChange={handleInputChange}
+                onBlur={handleBlur}
+                disabled={readOnly}
               />
               <label
                 htmlFor="list-radio-license"
-                className="w-full py-3 ms-2 text-sm font-medium text-gray-900"
+                className="w-full py-1 ms-2 text-sm font-medium text-gray-900"
               >
                 {option.name}
               </label>
@@ -26,6 +38,7 @@ const RadioButton = ({ label, id, name, value, options }) => {
           </li>
         ))}
       </ul>
+      {errors[name] && touched[name] && <span>{errors[name]}</span>}
     </>
   );
 };
