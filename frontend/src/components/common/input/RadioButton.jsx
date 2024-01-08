@@ -6,7 +6,7 @@ const RadioButton = ({
   touched = {},
   errors = {},
   handleInputChange,
-  handleBlur = {},
+  handleBlur,
 }) => {
   return (
     <>

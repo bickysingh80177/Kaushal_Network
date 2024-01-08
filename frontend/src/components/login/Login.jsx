@@ -14,22 +14,12 @@ const Login = () => {
     user_password: "",
   };
 
-  const {
-    values,
-    errors,
-    touched,
-    isSubmitting,
-    setValues,
-    setSubmitting,
-    handleInputChange,
-    handleBlur,
-    handleSubmit,
-    handleReset,
-  } = useFormik({
-    initialValues: initialFormState,
-    validationSchema: "",
-    onSubmit: "",
-  });
+  const [loginData, setLoginData] = useState(initialFormState);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(loginData);
+  };
 
   return (
     <div className="grid lg:grid-cols-2 sm:grid-cols-1 h-screen">
@@ -46,13 +36,12 @@ const Login = () => {
           </h3>
           <div className="">
             <RadioButton
-              value={values.user_type}
+              value={loginData.user_type}
               name="user_type"
               options={loginOptions}
-              errors={errors}
-              touched={touched}
-              handleInputChange={handleInputChange}
-              handleBlur={handleBlur}
+              handleInputChange={(e) =>
+                setLoginData({ ...loginData, user_type: e.target.value })
+              }
             />
           </div>
           <div className="flex flex-col bg-[#abb9ff1a] p-3 rounded-md mt-4 lg:w-1/2 w-[17rem]">
@@ -60,21 +49,19 @@ const Login = () => {
               type="email"
               name="user_email"
               placeholder="Enter your Email"
-              value={values.user_email}
-              handleInputChange={handleInputChange}
-              handlleBlur={handleBlur}
-              errors={errors}
-              touched={touched}
+              value={loginData.user_email}
+              handleInputChange={(e) =>
+                setLoginData({ ...loginData, user_email: e.target.value })
+              }
             />
             <InputWithoutLabel
               type="password"
               name="user_password"
-              value={values.user_password}
+              value={loginData.user_password}
               placeholder="Enter your password"
-              handleInputChange={handleInputChange}
-              handleBlur={handleBlur}
-              errors={errors}
-              touched={touched}
+              handleInputChange={(e) =>
+                setLoginData({ ...loginData, user_password: e.target.value })
+              }
             />
             <div className="flex justify-center items-center mt-2">
               <button className="bg-[#253974] text-white rounded-md px-4 py-2 text-sm p-auto hover:bg-[#3E63DD]">
