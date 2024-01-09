@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useFormik } from "formik";
 
 import login_art from "../assets/images/login.svg";
 import RadioButton from "../common/input/RadioButton";
