@@ -100,7 +100,7 @@ const Register = () => {
           <div className="mt-4 flex flex-col justify-center items-center">
             <span>
               Allready have an account?{" "}
-              <Link to="/login" className="underline">
+              <Link to="/" className="underline">
                 Sign in
               </Link>{" "}
               instead
