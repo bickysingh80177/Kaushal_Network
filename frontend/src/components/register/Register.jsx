@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import register_art from "../assets/images/Register_art.svg";
+import logo from "../assets/images/logo.svg";
 import RadioButton from "../common/input/RadioButton";
 import { Link } from "react-router-dom";
 import { loginOptions } from "../../constants/constantOptions";
@@ -31,14 +32,16 @@ const Register = () => {
       <div className="w-full hidden lg:flex lg:justify-center lg:items-center bg-[#d8b4fe]">
         <img src={register_art} alt="Login art" className="p-28" />
       </div>
+
       <form
         onSubmit={handleSubmit}
         className="flex justify-center items-center bg-[#fdfdfc]"
       >
         <div className="flex justify-center items-center flex-col w-full bg-[#ffffff3d] ">
-          <h3 className="mb-4 font-semibold text-gray-900">
-            Login to your account as:
-          </h3>
+          <div className="w-32 mb-8">
+            <img src={logo} alt="logo" />
+          </div>
+          <h3 className="mb-4 font-semibold text-gray-900">Register as:</h3>
           <div className="">
             <RadioButton
               value={registerData.user_type}
@@ -100,7 +103,7 @@ const Register = () => {
           <div className="mt-4 flex flex-col justify-center items-center">
             <span>
               Allready have an account?{" "}
-              <Link to="/" className="underline">
+              <Link to="/login" className="underline">
                 Sign in
               </Link>{" "}
               instead
