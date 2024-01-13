@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="">
       <Navbar />
-      home section
+      {/* home section */}
       <Footer />
     </div>
   );
