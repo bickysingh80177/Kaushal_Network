@@ -1,43 +1,46 @@
 import React, { useState } from "react";
 import logo from "../assets/images/logo.svg";
 import { Link } from "react-router-dom";
+import Hamburger from "hamburger-react";
 
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
 
   return (
     <div className="py-2 bg-[#fdf2f8] shadow-lg shadow-blue-50 w-[100vw] flex justify-between items-center">
-      <div className="w-10 mx-0 lg:w-16 2xl:ms-5 sm:ms-4 sm:w-15">
+      <div className="w-10 mx-0 lg:w-16 2xl:ms-5 sm:ms-4 sm:w-15  xs:ms-2">
         <Link to="/">
           <img src={logo} alt="logo" />
         </Link>
       </div>
-      <div>
-        <div
-          className="scale-75 lg:hidden sm:mr-4"
-          // onClick={setMobileNav((prev) => !prev)}
-        >
-          <button className="relative group">
-            <div className="relative flex items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all bg-slate-700 ring-0 ring-gray-300 hover:ring-8 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md">
-              <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 group-focus:-rotate-[45deg] origin-center">
-                <div className="bg-white h-[2px] w-1/2 rounded transform transition-all duration-300 group-focus:-rotate-90 group-focus:h-[1px] origin-right delay-75 group-focus:-translate-y-[1px]"></div>
-                <div className="bg-white h-[1px] rounded"></div>
-                <div className="bg-white h-[2px] w-1/2 rounded self-end transform transition-all duration-300 group-focus:-rotate-90 group-focus:h-[1px] origin-left delay-75 group-focus:translate-y-[1px]"></div>
-              </div>
-            </div>
-          </button>
+      <div className="xs:mr-10">
+        <div className="xs:w-5 sm:w-10 lg:hidden xs:mr-4 sm:mr-0">
+          <Hamburger
+            size={20}
+            duration={0.8}
+            onToggle={(toggled) => {
+              setMobileNav(toggled);
+            }}
+          />
         </div>
-        <div className={`${"lg:hidden"}`}>
-          <ul className="bg-[#f0f9ff] p-3">
-            <li>MSME</li>
-            <li>Business/Corporates</li>
-            <li>Banks</li>
-            <li>Service Providers</li>
-            <li>Network</li>
-            <li>Meet Now</li>
+        <div
+          className={`${
+            !mobileNav && "hidden"
+          } z-50 lg:hidden absolute right-8 top-12`}
+        >
+          <ul className="flex justify-start flex-col bg-[#ffffff] p-3 leading-8 rounded-md shadow-sm shadow-orange-200">
+            <Link to="/msme">MSME</Link>
+            <Link to="/corporate">Business/Corporates</Link>
+            <Link to="/service_provider">Banks</Link>
+            <Link to="/service_provider">Service Providers</Link>
+            <Link to="/network">Network</Link>
+            <Link to="/">Meet Now</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
           </ul>
         </div>
       </div>
+
       <div className="hidden lg:block 2xl:ms-[-20rem]">
         <nav className="h-10 rounded-2xl mt-2">
           <ul className="lg:flex lg:justify-evenly lg:items-center lg:text-sm lg:gap-1 2xl:text-lg 2xl:ms-[12rem] sm:hidden font-bold navbar-list">
