@@ -1,13 +1,13 @@
 import React from "react";
 import Navbar from "../section/Navbar";
 
-const MSME = () => {
+const Layout = ({ component }) => {
   return (
     <>
       <Navbar />
-      MSME
+      <div>{component}</div>
     </>
   );
 };
 
-export default MSME;
+export default Layout;
