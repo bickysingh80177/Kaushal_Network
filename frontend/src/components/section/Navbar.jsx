@@ -43,7 +43,7 @@ const Navbar = () => {
 
       <div className="hidden lg:block 2xl:ms-[-20rem]">
         <nav className="h-10 rounded-2xl mt-2">
-          <ul className="lg:flex lg:justify-evenly lg:items-center lg:text-sm lg:gap-1 2xl:text-lg 2xl:ms-[12rem] sm:hidden font-bold navbar-list">
+          <ul className="lg:flex lg:justify-evenly lg:items-center lg:text-sm lg:gap-5 2xl:text-lg 2xl:ms-[12rem] sm:hidden font-bold navbar-list">
             <li className="navbar-btn">
               <Link to="/msme">MSMe</Link>
             </li>

@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import register_art from "../assets/images/Register_art.svg";
 import logo from "../assets/images/logo.svg";
 import RadioButton from "../common/input/RadioButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginOptions } from "../../constants/constantOptions";
 import InputBox from "../common/input/InputBox";
 
@@ -15,16 +15,17 @@ const Register = () => {
     user_password: "",
     user_password_cnf: "",
   };
-
+  const navigate = useNavigate();
   const [registerData, setRegisterData] = useState(initialFormState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (registerData.user_password !== registerData.user_password_cnf) {
-      console.log("no match");
       toast.warning("Passwords do not match");
     }
-    console.log(registerData);
+    navigate("/register/user_details", {
+      data: registerData,
+    });
   };
 
   return (
@@ -102,7 +103,7 @@ const Register = () => {
 
           <div className="mt-4 flex flex-col justify-center items-center">
             <span>
-              Allready have an account?{" "}
+              Already have an account?{" "}
               <Link to="/login" className="underline">
                 Sign in
               </Link>{" "}

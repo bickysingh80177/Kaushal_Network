@@ -10,6 +10,7 @@ import msmeRoutes from "./routes/msmeRoutes";
 import serviceproviderRoute from "./routes/serviceproviderRoute";
 import networkRoute from "./routes/networkRoute";
 import corporateRoute from "./routes/corporateRoute";
+import UserDetails from "./components/register/UserDetails";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/register/user_details" element={<UserDetails />} />
             {msmeRoutes()}
             {serviceproviderRoute()}
             {networkRoute()}
