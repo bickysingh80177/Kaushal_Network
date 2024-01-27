@@ -4,7 +4,7 @@ import login_art from "../assets/images/login.svg";
 import RadioButton from "../common/input/RadioButton";
 import InputWithoutLabel from "../common/input/InputWithoutLabel";
 import { Link } from "react-router-dom";
-import { loginOptions } from "../../constants/constantOptions";
+import { enterpriseOptions } from "../../constants/constantOptions";
 
 const Login = () => {
   const initialFormState = {
@@ -37,7 +37,7 @@ const Login = () => {
             <RadioButton
               value={loginData.user_type}
               name="user_type"
-              options={loginOptions}
+              options={enterpriseOptions}
               handleInputChange={(e) =>
                 setLoginData({ ...loginData, user_type: e.target.value })
               }

@@ -4,7 +4,7 @@ import register_art from "../assets/images/Register_art.svg";
 import logo from "../assets/images/logo.svg";
 import RadioButton from "../common/input/RadioButton";
 import { Link, useNavigate } from "react-router-dom";
-import { loginOptions } from "../../constants/constantOptions";
+import { enterpriseOptions } from "../../constants/constantOptions";
 import InputBox from "../common/input/InputBox";
 
 const Register = () => {
@@ -47,7 +47,7 @@ const Register = () => {
             <RadioButton
               value={registerData.user_type}
               name="user_type"
-              options={loginOptions}
+              options={enterpriseOptions}
               handleInputChange={(e) =>
                 setRegisterData({ ...registerData, user_type: e.target.value })
               }

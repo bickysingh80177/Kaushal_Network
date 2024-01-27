@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import logo from "../assets/images/logo.svg";
 import Navbar from "../section/Navbar";
 import InputBox from "../common/input/InputBox";
+import SelectBox from "../common/input/SelectBox";
+import {
+  enterpriseOptions,
+  entityOptions,
+} from "../../constants/constantOptions";
 
 const UserDetails = ({ data = {} }) => {
   const initialFormState = {
@@ -35,16 +40,14 @@ const UserDetails = ({ data = {} }) => {
   };
 
   const [user_details, setUser_details] = useState(initialFormState);
-  //   console.log(data);
 
   return (
     <>
-      {/* <Navbar /> */}
-      <div className="w-full scale-[0.3] h-48 mt-[-2rem]">
+      <div className="w-full scale-[0.3] h-48 mt-[-3rem]">
         <img src={logo} alt="logo" className="m-auto" />
       </div>
-      <div className="flex flex-row mx-12">
-        <div className="h-screen w-1/2 px-20 mt-20 py-20 bg-slate-50">
+      <div className="xs:mx-4 lg:flex lg:flex-row lg:mx-12 bg-slate-50">
+        <div className="xs:pt-5 xs:px-2 lg:w-1/2 lg:px-10 lg:pt-10 pb-5">
           <div>
             <InputBox
               label="Name"
@@ -75,31 +78,22 @@ const UserDetails = ({ data = {} }) => {
               }
             />
           </div>
+
           <div className="mt-4">
-            <InputBox
-              label="Phone"
-              value={user_details.phone}
-              placeholder="Enter your phone number..."
+            <SelectBox
+              label="Enterprise Type"
+              value={user_details.etr_type}
+              options={enterpriseOptions}
               handleInputChange={(e) =>
-                setUser_details({ ...user_details, phone: e.target.value })
+                setUser_details({ ...user_details, etr_type: e.target.value })
               }
             />
           </div>
           <div className="mt-4">
-            <InputBox
-              label="Enterprise Type"
-              value={data.user_type}
-              placeholder="Enter your phone number..."
-              //   handleInputChange={(e) =>
-              //     setUser_details({ ...user_details, phone: e.target.value })
-              //   }
-            />
-          </div>
-          <div className="mt-4">
-            <InputBox
+            <SelectBox
               label="Entity Type"
               value={user_details.entity_type}
-              placeholder="Enter your phone number..."
+              options={entityOptions}
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
@@ -147,9 +141,7 @@ const UserDetails = ({ data = {} }) => {
               }
             />
           </div>
-        </div>
-        <div className="h-screen w-1/2 px-20 mt-20 py-20 bg-slate-50">
-          <div>
+          <div className="mt-4">
             <InputBox
               label="Office Address"
               value={user_details.address}
@@ -162,7 +154,9 @@ const UserDetails = ({ data = {} }) => {
               }
             />
           </div>
-          <div className="mt-4">
+        </div>
+        <div className="xs:pt-5 xs:px-2 lg:w-1/2 lg:px-10 lg:pt-10 pb-5">
+          <div>
             <InputBox
               label="Office City"
               value={user_details.city}
@@ -281,7 +275,7 @@ const UserDetails = ({ data = {} }) => {
             />
           </div>
         </div>
-        <div className="h-screen w-1/2 px-20 mt-20 py-20 bg-slate-50">
+        <div className="xs:pt-5 xs:px-2 lg:w-1/2 lg:px-10 lg:pt-10 pb-5">
           <div>
             <InputBox
               label="CIN/ LLP-CIN"
@@ -400,6 +394,11 @@ const UserDetails = ({ data = {} }) => {
             />
           </div>
         </div>
+      </div>
+      <div className="flex justify-center items-center mt-3 mb-10">
+        <button className="bg-[#253974] text-white rounded-md px-4 py-2 text-sm p-auto hover:bg-[#3E63DD] lg:w-[12rem]">
+          Submit
+        </button>
       </div>
     </>
   );
