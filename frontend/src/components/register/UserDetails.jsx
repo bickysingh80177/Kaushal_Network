@@ -7,6 +7,7 @@ import {
   enterpriseOptions,
   entityOptions,
 } from "../../constants/constantOptions";
+import Footer from "../section/Footer";
 
 const UserDetails = ({ data = {} }) => {
   const initialFormState = {
@@ -46,7 +47,7 @@ const UserDetails = ({ data = {} }) => {
       <div className="w-full scale-[0.3] h-48 mt-[-3rem]">
         <img src={logo} alt="logo" className="m-auto" />
       </div>
-      <div className="xs:mx-4 lg:flex lg:flex-row lg:mx-12 bg-slate-50">
+      <div className="xs:mx-4 lg:flex lg:flex-row lg:mx-12 bg-slate-50 rounded-md">
         <div className="xs:pt-5 xs:px-2 lg:w-1/2 lg:px-10 lg:pt-10 pb-5">
           <div>
             <InputBox
@@ -149,7 +150,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  address: e.target.value,
                 })
               }
             />
@@ -164,7 +165,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  city: e.target.value,
                 })
               }
             />
@@ -177,7 +178,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  state: e.target.value,
                 })
               }
             />
@@ -190,7 +191,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  zip: e.target.value,
                 })
               }
             />
@@ -203,7 +204,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  country: e.target.value,
                 })
               }
             />
@@ -217,7 +218,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  brn_address: e.target.value,
                 })
               }
             />
@@ -230,7 +231,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  brn_city: e.target.value,
                 })
               }
             />
@@ -243,7 +244,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  brn_state: e.target.value,
                 })
               }
             />
@@ -256,7 +257,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  brn_country: e.target.value,
                 })
               }
             />
@@ -269,7 +270,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  brn_zip: e.target.value,
                 })
               }
             />
@@ -278,13 +279,14 @@ const UserDetails = ({ data = {} }) => {
         <div className="xs:pt-5 xs:px-2 lg:w-1/2 lg:px-10 lg:pt-10 pb-5">
           <div>
             <InputBox
+              type="file"
               label="CIN/ LLP-CIN"
               value={user_details.cin_llp_cin}
               placeholder="Enter your CIN/ LLP-CIN..."
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  cin_llp_cin: e.target.value,
                 })
               }
             />
@@ -297,20 +299,21 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  pan_no: e.target.value,
                 })
               }
             />
           </div>
           <div className="mt-4">
             <InputBox
+              type="file"
               label="Pan File"
               value={user_details.pan_file}
               placeholder="Enter your office zip code..."
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  pan_file: e.target.value,
                 })
               }
             />
@@ -323,20 +326,21 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  gst_no: e.target.value,
                 })
               }
             />
           </div>
           <div className="mt-4">
             <InputBox
+              type="file"
               label="GST File"
               value={user_details.gst_file}
               placeholder="Enter your gst no..."
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  gst_file: e.target.value,
                 })
               }
             />
@@ -349,33 +353,35 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  msme_reg_no: e.target.value,
                 })
               }
             />
           </div>
           <div className="mt-4">
             <InputBox
+              type="file"
               label="Trade Licence"
               value={user_details.trade_lisc}
               placeholder="Enter your gst no..."
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  trade_lisc: e.target.value,
                 })
               }
             />
           </div>
           <div className="mt-4">
             <InputBox
+              type="file"
               label="IEC"
               value={user_details.iec}
               placeholder="Enter your gst no..."
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  iec: e.target.value,
                 })
               }
             />
@@ -388,7 +394,7 @@ const UserDetails = ({ data = {} }) => {
               handleInputChange={(e) =>
                 setUser_details({
                   ...user_details,
-                  brand_name: e.target.value,
+                  bsn_sector: e.target.value,
                 })
               }
             />
@@ -400,6 +406,7 @@ const UserDetails = ({ data = {} }) => {
           Submit
         </button>
       </div>
+      <Footer />
     </>
   );
 };
