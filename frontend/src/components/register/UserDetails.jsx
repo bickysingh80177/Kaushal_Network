@@ -8,6 +8,7 @@ import {
   entityOptions,
 } from "../../constants/constantOptions";
 import Footer from "../section/Footer";
+import { useNavigate } from "react-router";
 
 const UserDetails = ({ data = {} }) => {
   const initialFormState = {
@@ -41,9 +42,14 @@ const UserDetails = ({ data = {} }) => {
   };
 
   const [user_details, setUser_details] = useState(initialFormState);
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    navigate("/");
+  };
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <div className="w-full scale-[0.3] h-48 mt-[-3rem]">
         <img src={logo} alt="logo" className="m-auto" />
       </div>
@@ -401,13 +407,13 @@ const UserDetails = ({ data = {} }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center mt-3 mb-10">
+      <div className="flex justify-center items-center mt-3 mb-16">
         <button className="bg-[#253974] text-white rounded-md px-4 py-2 text-sm p-auto hover:bg-[#3E63DD] lg:w-[12rem]">
           Submit
         </button>
       </div>
       <Footer />
-    </>
+    </form>
   );
 };
 

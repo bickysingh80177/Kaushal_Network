@@ -1,0 +1,19 @@
+{
+  "name": "kaushal_network",
+  "version": "1.0.0",
+  "description": "backend for Kaushal Network",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bickysingh80177/Kaushal_Network.git"
+  },
+  "author": "bicky_singh_kushwaha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bickysingh80177/Kaushal_Network/issues"
+  },
+  "homepage": "https://github.com/bickysingh80177/Kaushal_Network#readme"
+}
