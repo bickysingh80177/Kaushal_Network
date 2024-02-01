@@ -49,12 +49,12 @@ const UserDetails = ({ data = {} }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className=" bg-slate-50">
       <div className="w-full scale-[0.3] h-48 mt-[-3rem]">
         <img src={logo} alt="logo" className="m-auto" />
       </div>
-      <div className="xs:mx-4 lg:flex lg:flex-row lg:mx-12 bg-slate-50 rounded-md">
-        <div className="xs:pt-5 xs:px-2 lg:w-1/2 lg:px-10 lg:pt-10 pb-5">
+      <div className="xs:mx-4 lg:flex lg:flex-col lg:items-center lg:mx-12 rounded-md">
+        <div className="xs:pt-5 xs:px-2 lg:w-1/3 lg:px-10 lg:pt-10 pb-5 m-3 rounded-md lg:shadow-md">
           <div>
             <InputBox
               label="Name"
@@ -85,7 +85,6 @@ const UserDetails = ({ data = {} }) => {
               }
             />
           </div>
-
           <div className="mt-4">
             <SelectBox
               label="Enterprise Type"
@@ -148,7 +147,9 @@ const UserDetails = ({ data = {} }) => {
               }
             />
           </div>
-          <div className="mt-4">
+        </div>
+        <div className="xs:pt-5 xs:px-2 lg:w-1/3 lg:px-10 lg:pt-10 pb-5 m-3 rounded-md lg:shadow-md">
+          <div>
             <InputBox
               label="Office Address"
               value={user_details.address}
@@ -161,9 +162,7 @@ const UserDetails = ({ data = {} }) => {
               }
             />
           </div>
-        </div>
-        <div className="xs:pt-5 xs:px-2 lg:w-1/2 lg:px-10 lg:pt-10 pb-5">
-          <div>
+          <div className="mt-4">
             <InputBox
               label="Office City"
               value={user_details.city}
@@ -282,7 +281,7 @@ const UserDetails = ({ data = {} }) => {
             />
           </div>
         </div>
-        <div className="xs:pt-5 xs:px-2 lg:w-1/2 lg:px-10 lg:pt-10 pb-5">
+        <div className="xs:pt-5 xs:px-2 lg:w-1/3 lg:px-10 lg:pt-10 pb-5 m-3 rounded-md lg:shadow-md">
           <div>
             <InputBox
               type="file"
