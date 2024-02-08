@@ -10,6 +10,7 @@ import InputBox from "../common/input/InputBox";
 const Register = () => {
   const initialFormState = {
     user_type: "",
+    other_user_type: "",
     user_name: "",
     user_email: "",
     user_password: "",
@@ -42,7 +43,9 @@ const Register = () => {
           <div className="w-32 mb-8">
             <img src={logo} alt="logo" />
           </div>
-          <h3 className="mb-4 font-semibold text-gray-900">Register as:</h3>
+          <h3 className="mb-4 font-semibold text-gray-900">
+            Type of Enterprise
+          </h3>
           <div className="">
             <RadioButton
               value={registerData.user_type}
@@ -55,13 +58,27 @@ const Register = () => {
           </div>
           <div className="flex flex-col bg-[#abb9ff1a] p-3 rounded-md mt-4 lg:w-[25rem] w-[17rem]">
             <InputBox
-              label="Name"
+              label="Name of Business"
               value={registerData.user_name}
-              placeholder="Enter your name..."
+              placeholder="Enter your business name..."
               handleInputChange={(e) =>
                 setRegisterData({ ...registerData, user_name: e.target.value })
               }
             />
+            {registerData.user_type === "other" && (
+              <InputBox
+                type="password"
+                label="Specify your business type"
+                value={registerData.other_user_type}
+                placeholder="Enter your business type..."
+                handleInputChange={(e) =>
+                  setRegisterData({
+                    ...registerData,
+                    other_user_type: e.target.value,
+                  })
+                }
+              />
+            )}
             <InputBox
               label="Email"
               value={registerData.user_email}
@@ -72,7 +89,7 @@ const Register = () => {
             />
             <InputBox
               type="password"
-              label="Password"
+              label="Create Your Password"
               value={registerData.user_password}
               placeholder="Enter your password..."
               handleInputChange={(e) =>
@@ -84,7 +101,7 @@ const Register = () => {
             />
             <InputBox
               type="password"
-              label="Confirm Password"
+              label="Confirm Your Password"
               value={registerData.user_password_cnf}
               placeholder="Confirm your password..."
               handleInputChange={(e) =>
