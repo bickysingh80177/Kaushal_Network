@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="fixed bottom-0 w-full pt-3 bg-gray-200">
+    <div className="bottom-0 w-full pt-3 bg-gray-200">
       <div className="xs:flex-col xs:items-center sm:flex-col sm:items-center flex lg:justify-evenly lg:flex-row text-sm py-2">
         <div>Copyright © 2021 . All rights reserved.</div>
         <div className="lg:flex flex-col gap-4">
@@ -27,9 +27,9 @@ const Footer = () => {
 
         <div>Hand-crafted & made with ❤️</div>
       </div>
-      <span className="text-transparent selection:text-transparent text-xs">
+      {/* <span className="text-transparent selection:text-transparent text-xs">
         https://www.linkedin.com/in/bickysinghkushwaha/
-      </span>
+      </span> */}
     </div>
   );
 };
