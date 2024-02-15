@@ -7,7 +7,7 @@ const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
 
   return (
-    <div className="py-2 bg-[#fdf2f8] shadow-lg shadow-blue-50 w-[100vw] flex justify-between items-center">
+    <div className="py-2 bg-[#fdf2f8] shadow-lg shadow-blue-50 w-full flex justify-between items-center">
       <div className="w-10 mx-0 lg:w-16 2xl:ms-5 sm:ms-4 sm:w-15  xs:ms-2">
         <Link to="/">
           <img src={logo} alt="logo" />

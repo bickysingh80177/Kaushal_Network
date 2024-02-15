@@ -8,7 +8,9 @@ const User = model.userModel;
 
 // middleware for authenticating the users
 exports.isUserAuthenticated = catchAsyncError(async (req, res, next) => {
-  const { token } = req.cookies;
+  // const { token } = req.cookies;
+  const userId = req.headers["authorization"];
+  const token = userId.split(" ")[1];
 
   if (!token) {
     next(new ErrorHandler("Please login to acces this resource.", 401));
