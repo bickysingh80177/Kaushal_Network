@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import logo from "../assets/images/logo.svg";
 import Navbar from "../section/Navbar";
 import InputBox from "../common/input/InputBox";
+import InputWithoutLabel from "../common/input/InputWithoutLabel";
 import SelectBox from "../common/input/SelectBox";
 import {
   businessInvOptions,
@@ -88,13 +89,121 @@ const UserDetails = ({ data = {} }) => {
     console.log(contactPerson);
   };
 
-  const handleAddBrand = () => {
-    console.log(user_details.brand_names.length);
-    user_details.brand_names.push(brand_name);
-    setBrand_name("");
+  const handleAdd = (key, dataObj, setFun, initialState) => {
+    user_details[key].push(dataObj);
+    setFun(initialState);
   };
 
-  const renderContactSection = () => {};
+  const renderContactSection = () => {
+    return (
+      <div>
+        {user_details.contact_details?.map((item, index) => {
+          return (
+            <div key={index} className="sub-section">
+              <div className="mt-4">
+                <InputBox
+                  label="Contact Name"
+                  value={item.cont_name}
+                  placeholder="Enter your contact name..."
+                />
+              </div>
+              <div className="mt-4">
+                <InputBox
+                  label="Contact Designation"
+                  value={item.cont_desig}
+                  placeholder="Enter your contact designation..."
+                />
+              </div>
+              <div className="mt-4">
+                <InputBox
+                  label="Contact Email"
+                  value={item.cont_email}
+                  placeholder="Enter your contact email..."
+                />
+              </div>
+              <div className="mt-4">
+                <InputBox
+                  label="Contact Phone"
+                  value={item.cont_phone}
+                  placeholder="Enter your contact phone..."
+                />
+              </div>
+            </div>
+          );
+        })}
+        <div className="sub-section">
+          <div className="mt-4">
+            <InputBox
+              label="Contact Name"
+              value={contactPerson.cont_name}
+              placeholder="Enter your contact name..."
+              handleInputChange={(e) =>
+                setContactPerson({
+                  ...contactPerson,
+                  cont_name: e.target.value,
+                })
+              }
+            />
+          </div>
+          <div className="mt-4">
+            <InputBox
+              label="Contact Designation"
+              value={contactPerson.cont_desig}
+              placeholder="Enter your contact designation..."
+              handleInputChange={(e) =>
+                setContactPerson({
+                  ...contactPerson,
+                  cont_desig: e.target.value,
+                })
+              }
+            />
+          </div>
+          <div className="mt-4">
+            <InputBox
+              label="Contact Email"
+              value={contactPerson.cont_email}
+              placeholder="Enter your contact email..."
+              handleInputChange={(e) =>
+                setContactPerson({
+                  ...contactPerson,
+                  cont_email: e.target.value,
+                })
+              }
+            />
+          </div>
+          <div className="mt-4">
+            <InputBox
+              label="Contact Phone"
+              value={contactPerson.cont_phone}
+              placeholder="Enter your contact phone..."
+              handleInputChange={(e) =>
+                setContactPerson({
+                  ...contactPerson,
+                  cont_phone: e.target.value,
+                })
+              }
+            />
+          </div>
+        </div>
+        <div className="flex justify-center items-center mt-4">
+          <button
+            className="bg-[#253974] text-white rounded-md px-4 py-2 text-sm p-auto hover:bg-[#3E63DD] lg:w-[12rem]"
+            onClick={(e) => {
+              e.preventDefault();
+              handleAdd(
+                "contact_details",
+                contactPerson,
+                setContactPerson,
+                initialContactForm
+              );
+            }}
+          >
+            Add More
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   const renderOtherDocsSection = () => {};
 
@@ -104,23 +213,24 @@ const UserDetails = ({ data = {} }) => {
         {user_details.brand_names?.map((item, index) => {
           return (
             <div className="mt-4" key={item + index}>
-              <InputBox label="Brand Names" value={item} />
+              <InputWithoutLabel value={item} />
             </div>
           );
         })}
         {user_details.brand_names?.length <= 9 ? (
           <div className="mt-4 flex justify-between gap-5">
             <div className="w-full">
-              <InputBox
-                label="Brand Name"
-                placeholder="Enter your legal name..."
+              <InputWithoutLabel
+                placeholder="Enter your brand name..."
                 value={brand_name}
                 handleInputChange={(e) => setBrand_name(e.target.value)}
               />
             </div>
             <span
-              className="pt-8 cursor-pointer addBrand-btn"
-              onClick={handleAddBrand}
+              className="cursor-pointer addBrand-btn"
+              onClick={() =>
+                handleAdd("brand_names", brand_name, setBrand_name, "")
+              }
             >
               {
                 <svg
@@ -156,14 +266,9 @@ const UserDetails = ({ data = {} }) => {
         Connecting Growth <br /> Begin your Growth Journey
       </h3>
       <div className="flex justify-center items-start gap-56">
-        <div className="flex flex-col gap-8 fixed left-24 top-64 font-bold">
-          <span className="cursor-pointer">Enterprise details</span>
-          <span className="cursor-pointer">About Products and Services</span>
-          <span className="cursor-pointer">Contact details</span>
-          <span className="cursor-pointer">Statutory Details</span>
-        </div>
         <div className="xs:mx-4 lg:flex lg:flex-col lg:items-center lg:mx-12 rounded-md">
           <div className="xs:pt-5 xs:px-2 lg:w-[40rem] lg:px-10 lg:pt-10 pb-5 m-3 rounded-md lg:shadow-md">
+            <h3 className="text-xl mb-4 text-center">Enterprise Details</h3>
             <div>
               <InputBox
                 label="Trade Name"
@@ -305,19 +410,13 @@ const UserDetails = ({ data = {} }) => {
                 }
               />
             </div>
-            {/* <div className="mt-4"> */}
+            <div className="mt-4 ms-4 text-center">Brand Names</div>
             {renderBrandSection()}
-            {/* <InputBox
-                label="Brand Names"
-                placeholder="Enter your legal name..."
-                // value={user_details.phone}
-                // handleInputChange={(e) =>
-                //   setUser_details({ ...user_details, logo: e.target.value })
-                // }
-              /> */}
-            {/* </div> */}
           </div>
           <div className="xs:pt-5 xs:px-2 lg:w-[40rem] lg:px-10 lg:pt-10 pb-5 m-3 rounded-md lg:shadow-md">
+            <h3 className="text-xl mb-4 text-center">
+              About Products and Services
+            </h3>
             <div>
               <SelectBox
                 label="Business Involvement"
@@ -424,104 +523,12 @@ const UserDetails = ({ data = {} }) => {
               />
             </div>
           </div>
-          <div className="xs:pt-5 xs:px-2 lg:w-[40rem] lg:px-10 lg:pt-10 pb-5 m-3 rounded-md lg:shadow-md">
+          <div className="xs:pt-5 xs:px-2 lg:w-[40rem] lg:px-10 pb-5 rounded-md lg:shadow-md">
+            <h3 className="text-xl mb-4 text-center">Contact Details</h3>
             {renderContactSection()}
-            {/* {user_details?.contact_details?.map((item, index) => {
-              return (
-                <div key={index}>
-                  <div>
-                    <InputBox
-                      label="Contact Name"
-                      value={item.cont_name}
-                      placeholder="Enter your contact name..."
-                    />
-                  </div>
-                  <div className="mt-4">
-                    <InputBox
-                      label="Contact Designation"
-                      value={item.cont_desig}
-                      placeholder="Enter your contact designation..."
-                    />
-                  </div>
-                  <div className="mt-4">
-                    <InputBox
-                      label="Contact Email"
-                      value={item.cont_email}
-                      placeholder="Enter your contact email..."
-                    />
-                  </div>
-                  <div className="mt-4">
-                    <InputBox
-                      label="Contact Phone"
-                      value={item.cont_phone}
-                      placeholder="Enter your contact phone..."
-                    />
-                  </div>
-                </div>
-              );
-            })}
-            <div>
-              <InputBox
-                label="Contact Name"
-                value={contactPerson.cont_name}
-                placeholder="Enter your contact name..."
-                handleInputChange={(e) =>
-                  setContactPerson({
-                    ...contactPerson,
-                    cont_name: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="mt-4">
-              <InputBox
-                label="Contact Designation"
-                value={contactPerson.cont_desig}
-                placeholder="Enter your contact designation..."
-                handleInputChange={(e) =>
-                  setContactPerson({
-                    ...contactPerson,
-                    cont_desig: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="mt-4">
-              <InputBox
-                label="Contact Email"
-                value={contactPerson.cont_email}
-                placeholder="Enter your contact email..."
-                handleInputChange={(e) =>
-                  setContactPerson({
-                    ...contactPerson,
-                    cont_email: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="mt-4">
-              <InputBox
-                label="Contact Phone"
-                value={contactPerson.cont_phone}
-                placeholder="Enter your contact phone..."
-                handleInputChange={(e) =>
-                  setContactPerson({
-                    ...contactPerson,
-                    cont_phone: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="flex justify-center items-center mt-4">
-              <button
-                className="bg-[#253974] text-white rounded-md px-4 py-2 text-sm p-auto hover:bg-[#3E63DD] lg:w-[8rem]"
-                onClick={handleAddContact}
-              >
-                Add More
-              </button>
-            </div> */}
           </div>
           <div className="xs:pt-5 xs:px-2 lg:w-[40rem] lg:px-10 lg:pt-10 pb-5 m-3 rounded-md lg:shadow-md">
+            <h3 className="text-xl mb-4 text-center">Statutory Details</h3>
             <div>
               <InputBox
                 label="MSME Reg. No."
