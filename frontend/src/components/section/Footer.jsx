@@ -5,7 +5,7 @@ const Footer = () => {
     <div className="bottom-0 w-full pt-3 bg-gray-200">
       <div className="xs:flex-col xs:items-center sm:flex-col sm:items-center flex lg:justify-evenly lg:flex-row text-sm py-2">
         <div>Copyright © 2021 . All rights reserved.</div>
-        <div className="lg:flex flex-col gap-4">
+        <div className="flex flex-col sm:items-center lg:gap-4">
           <p className="cursor-pointer hover:text-blue-600">
             1. Why Kaushal Netwok?
           </p>
@@ -13,7 +13,7 @@ const Footer = () => {
             2. Articles & Updates for Industries
           </p>
         </div>
-        <div className="lg:flex flex-col gap-4">
+        <div className="flex flex-col sm:items-center lg:gap-4">
           <p className="cursor-pointer hover:text-blue-600">
             3. Upcoming Events
           </p>
@@ -21,7 +21,7 @@ const Footer = () => {
             4. About Kaushal Network
           </p>
         </div>
-        <div className="lg:flex items-start">
+        <div className="flex sm:items-center lg:items-start">
           <p className="cursor-pointer hover:text-blue-600">5. Team Members</p>
         </div>
 
