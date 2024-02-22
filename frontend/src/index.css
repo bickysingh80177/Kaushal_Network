@@ -130,7 +130,8 @@ input[type="file"]::file-selector-button:hover {
   border-radius: 8px;
 }
 
-@media screen and (max-width: 768px) {
+/* tablet styles */
+@media screen and (min-width: 426px) and (max-width: 768px) {
   .top-section {
     margin: auto;
     font-size: 1.5rem;
@@ -149,5 +150,27 @@ input[type="file"]::file-selector-button:hover {
     width: 10rem;
     font-size: small;
     padding: 15px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 425px) {
+  .search-group {
+    height: 20px;
+  }
+
+  .search-group > input {
+    width: 6rem;
+    padding: 1rem;
+    height: 1rem;
+    font-size: smaller;
+  }
+
+  .top-section {
+    padding: 0;
+    font-size: 22px;
+  }
+
+  .top-section-details {
+    margin-top: 1rem;
   }
 }
