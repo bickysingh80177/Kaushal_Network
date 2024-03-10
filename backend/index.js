@@ -1,6 +1,10 @@
 const express = require("express");
 const connectDB = require("./utils/db");
+const cors = require("cors");
 const dotenv = require("dotenv");
+
+const errorMiddleware = require("./middlewares/errors");
+const user = require("./routes/userRoutes");
 
 // handling uncaught exceptions
 process.on("uncaughtException", (err) => {
@@ -18,7 +22,13 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 // MIDDLEWARES
-app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(errorMiddleware);
+
+// registering the routes
+app.use(`${process.env.SERVER_APP_BASE_URL}/user`, user);
 
 app.get("/", (req, res) => {
   res.send({ msg: "Hello from the server!" });
@@ -32,5 +42,6 @@ app.listen(port, () => {
 process.on("uncaughtRejection", (err) => {
   console.log("Server stopped on rejection:", err.message);
   console.log(err);
+
   process.exit(1);
 });

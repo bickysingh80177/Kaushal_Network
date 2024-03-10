@@ -1,19 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import logo from "../assets/images/logo.svg";
-import Navbar from "../section/Navbar";
 import InputBox from "../common/input/InputBox";
 import InputWithoutLabel from "../common/input/InputWithoutLabel";
 import SelectBox from "../common/input/SelectBox";
 import {
   businessInvOptions,
   empCntOptions,
-  enterpriseOptions,
   entityOptions,
   industryOptions,
   sectorOptions,
 } from "../../constants/constantOptions";
 import Footer from "../section/Footer";
+import { useDispatch } from "react-redux";
 
 const UserDetails = ({ data = {} }) => {
   const initialFormState = {
@@ -25,6 +24,7 @@ const UserDetails = ({ data = {} }) => {
     entity_type: "",
     incorportion_year: "",
     reg_office_add: "",
+    reg_office_pincode: "",
     reg_office_city: "",
     reg_office_state: "",
     reg_office_contry: "",
@@ -37,7 +37,9 @@ const UserDetails = ({ data = {} }) => {
     service_names: [],
     other_names: [],
     business_sector: "",
+    other_business_sector: "",
     industry_type: "",
+    other_industry_type: "",
     emp_number: "",
     exp_years: "",
 
@@ -56,10 +58,9 @@ const UserDetails = ({ data = {} }) => {
     trade_liscence_number: "",
     trade_liscence_file: "",
     iec_number: "",
-    iec_number_file: "",
+    iec_file: "",
     aadhar_number: "",
     aadhar_number_file: "",
-    other_details: [],
   };
 
   const initialContactForm = {
@@ -69,24 +70,21 @@ const UserDetails = ({ data = {} }) => {
     cont_phone: "",
   };
 
-  const otherDocDetailForm = {
-    other_name: "",
-    other_file: "",
-  };
-
   const [user_details, setUser_details] = useState(initialFormState);
   const [contactPerson, setContactPerson] = useState(initialContactForm);
-  const [otherDetails, setOtherDetails] = useState(otherDocDetailForm);
   const [brand_name, setBrand_name] = useState("");
+  const [goods_name, setGoods_name] = useState("");
+  const [service_name, setservice_name] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(user_details);
+    // const resp = await registerUser(user_details);
+    // dispatch(onRegister(resp.data));
     navigate("/");
-  };
-
-  const handleAddContact = () => {
-    console.log(contactPerson);
   };
 
   const handleAdd = (key, dataObj, setFun, initialState) => {
@@ -205,8 +203,6 @@ const UserDetails = ({ data = {} }) => {
     );
   };
 
-  const renderOtherDocsSection = () => {};
-
   const renderBrandSection = () => {
     return (
       <div className="sub-section">
@@ -230,6 +226,106 @@ const UserDetails = ({ data = {} }) => {
               className="cursor-pointer addBrand-btn"
               onClick={() =>
                 handleAdd("brand_names", brand_name, setBrand_name, "")
+              }
+            >
+              {
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
+              }
+            </span>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+    );
+  };
+
+  const renderGoodsSection = () => {
+    return (
+      <div className="sub-section">
+        {user_details.goods_names?.map((item, index) => {
+          return (
+            <div className="mt-4" key={item + index}>
+              <InputWithoutLabel value={item} />
+            </div>
+          );
+        })}
+        {user_details.goods_names?.length <= 19 ? (
+          <div className="mt-4 flex justify-between gap-5">
+            <div className="w-full">
+              <InputWithoutLabel
+                placeholder="Enter your Goods..."
+                value={goods_name}
+                handleInputChange={(e) => setGoods_name(e.target.value)}
+              />
+            </div>
+            <span
+              className="cursor-pointer addBrand-btn"
+              onClick={() =>
+                handleAdd("goods_names", goods_name, setGoods_name, "")
+              }
+            >
+              {
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
+              }
+            </span>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+    );
+  };
+
+  const renderServiceSection = () => {
+    return (
+      <div className="sub-section">
+        {user_details.service_names?.map((item, index) => {
+          return (
+            <div className="mt-4" key={item + index}>
+              <InputWithoutLabel value={item} />
+            </div>
+          );
+        })}
+        {user_details.service_names?.length <= 19 ? (
+          <div className="mt-4 flex justify-between gap-5">
+            <div className="w-full">
+              <InputWithoutLabel
+                placeholder="Enter your brand name..."
+                value={service_name}
+                handleInputChange={(e) => setservice_name(e.target.value)}
+              />
+            </div>
+            <span
+              className="cursor-pointer addBrand-btn"
+              onClick={() =>
+                handleAdd("service_names", service_name, setservice_name, "")
               }
             >
               {
@@ -347,6 +443,20 @@ const UserDetails = ({ data = {} }) => {
             </div>
             <div className="mt-4">
               <InputBox
+                type="number"
+                label="Registered Office Pincode"
+                value={user_details.reg_office_pincode}
+                placeholder="Enter your registered office address..."
+                handleInputChange={(e) =>
+                  setUser_details({
+                    ...user_details,
+                    reg_office_pincode: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <InputBox
                 label="Registered Office City"
                 value={user_details.reg_office_city}
                 placeholder="Enter your registered office city..."
@@ -430,45 +540,12 @@ const UserDetails = ({ data = {} }) => {
                 }
               />
             </div>
-            <div className="mt-4">
-              <InputBox
-                label="Name of Goods"
-                value={user_details.goods_names}
-                placeholder="Enter your office goods_names..."
-                handleInputChange={(e) =>
-                  setUser_details({
-                    ...user_details,
-                    goods_names: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="mt-4">
-              <InputBox
-                label="Name of Services"
-                value={user_details.service_names}
-                placeholder="Enter your office state..."
-                handleInputChange={(e) =>
-                  setUser_details({
-                    ...user_details,
-                    service_names: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="mt-4">
-              <InputBox
-                label="Name of other businesses"
-                value={user_details.other_names}
-                placeholder="Enter your office zip code..."
-                handleInputChange={(e) =>
-                  setUser_details({
-                    ...user_details,
-                    other_names: e.target.value,
-                  })
-                }
-              />
-            </div>
+            <div className="mt-4 ms-4 text-center">Goods Details</div>
+            {renderGoodsSection()}
+
+            <div className="mt-4 ms-4 text-center">Service Details</div>
+            {renderServiceSection()}
+
             <div className="mt-4">
               <SelectBox
                 label="Business Sectors"
@@ -482,20 +559,51 @@ const UserDetails = ({ data = {} }) => {
                 }
               />
             </div>
+            {user_details.business_sector === "9" && (
+              <div className="mt-4">
+                <InputBox
+                  label="Name of other business sector"
+                  value={user_details.other_business_sector}
+                  placeholder="Enter your bussiness sector..."
+                  handleInputChange={(e) =>
+                    setUser_details({
+                      ...user_details,
+                      other_business_sector: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            )}
 
             <div className="mt-4">
               <SelectBox
                 label="Industry Type"
-                value={user_details.branch_address}
+                value={user_details.industry_type}
                 options={industryOptions}
                 handleInputChange={(e) =>
                   setUser_details({
                     ...user_details,
-                    branch_address: e.target.value,
+                    industry_type: e.target.value,
                   })
                 }
               />
             </div>
+
+            {user_details.industry_type === "25" && (
+              <div className="mt-4">
+                <InputBox
+                  label="Name of other industry type"
+                  value={user_details.other_industry_type}
+                  placeholder="Enter your industry type..."
+                  handleInputChange={(e) =>
+                    setUser_details({
+                      ...user_details,
+                      other_industry_type: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            )}
             <div className="mt-4">
               <SelectBox
                 label="Number of Employees"
@@ -546,11 +654,11 @@ const UserDetails = ({ data = {} }) => {
               <InputBox
                 type="file"
                 label="MSME Reg. File"
-                value={user_details.msme_reg_number}
+                value={user_details.msme_reg_number_file}
                 handleInputChange={(e) =>
                   setUser_details({
                     ...user_details,
-                    msme_reg_number: e.target.value,
+                    msme_reg_number_file: e.target.value,
                   })
                 }
               />
@@ -576,7 +684,7 @@ const UserDetails = ({ data = {} }) => {
                 handleInputChange={(e) =>
                   setUser_details({
                     ...user_details,
-                    cin_llp_cin: e.target.value,
+                    cin_llp_cin_file: e.target.value,
                   })
                 }
               />
@@ -676,11 +784,11 @@ const UserDetails = ({ data = {} }) => {
               <InputBox
                 type="file"
                 label="IEC File"
-                value={user_details.iec_number_file}
+                value={user_details.iec_file}
                 handleInputChange={(e) =>
                   setUser_details({
                     ...user_details,
-                    iec_number_file: e.target.value,
+                    iec_file: e.target.value,
                   })
                 }
               />
@@ -711,26 +819,15 @@ const UserDetails = ({ data = {} }) => {
                 }
               />
             </div>
-
-            {/* <div className="mt-4">
-              {renderOtherDocsSection()}
-              <InputBox
-                label="Other Documents"
-                value={user_details.business_sector}
-                handleInputChange={(e) =>
-                  setUser_details({
-                    ...user_details,
-                    business_sector: e.target.value,
-                  })
-                }
-              />
-            </div> */}
           </div>
         </div>
       </div>
 
       <div className="flex justify-center items-center mt-3 mb-16">
-        <button className="bg-[#253974] text-white rounded-md px-4 py-2 text-sm p-auto hover:bg-[#3E63DD] lg:w-[12rem]">
+        <button
+          className="bg-[#253974] text-white rounded-md px-4 py-2 text-sm p-auto hover:bg-[#3E63DD] lg:w-[12rem]"
+          type="submit"
+        >
           Submit
         </button>
       </div>

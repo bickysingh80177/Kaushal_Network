@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import register_art from "../assets/images/Register_art.svg";
 import logo from "../assets/images/logo.svg";
@@ -6,6 +6,8 @@ import RadioButton from "../common/input/RadioButton";
 import { Link, useNavigate } from "react-router-dom";
 import { enterpriseOptions } from "../../constants/constantOptions";
 import InputBox from "../common/input/InputBox";
+import { useDispatch, useSelector } from "react-redux";
+import authAction from "../../actions/authAction";
 
 const Register = () => {
   const initialFormState = {
@@ -16,17 +18,36 @@ const Register = () => {
     user_password: "",
     user_password_cnf: "",
   };
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
+  // const args = useSelector((state) => state.authReducer);
   const navigate = useNavigate();
   const [registerData, setRegisterData] = useState(initialFormState);
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+
+  // console.log(args);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(authAction.clearError);
+    }
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [dispatch, error, isAuthenticated, navigate]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (registerData.user_password !== registerData.user_password_cnf) {
       toast.warning("Passwords do not match");
+    } else {
+      dispatch(authAction.userRegistration(registerData));
+      toast.success("Registered successfully");
+      navigate("/register/user_details");
     }
-    navigate("/register/user_details", {
-      data: registerData,
-    });
   };
 
   return (

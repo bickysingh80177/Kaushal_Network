@@ -1,11 +1,11 @@
 // creating a new jwt token and storing it into a cookie
 
-const setToken = (user, statusCode, res) => {
-  const token = user.getJWTtoken();
+const sendToken = async (user, statusCode, res) => {
+  const token = await user.getJWTtoken();
 
   //   options for token generation
   const options = {
-    expires: new Date(
+    expiresIn: new Date(
       Date.now() + process.env.JWT_EXPIRE * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
@@ -18,4 +18,4 @@ const setToken = (user, statusCode, res) => {
   });
 };
 
-exports.setToken = setToken;
+exports.setToken = sendToken;
