@@ -22,6 +22,10 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 // MIDDLEWARES
+app.use(function (req, res, next) {
+  console.log(req.params, req.url, res.statusCode);
+  next();
+});
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

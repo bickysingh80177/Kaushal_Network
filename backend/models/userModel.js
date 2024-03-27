@@ -3,7 +3,7 @@ const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const userModel = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   user_type: {
     type: String,
     required: [true, "Please select your user type"],
@@ -27,12 +27,12 @@ const userModel = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your password"],
     minLength: [8, "Password should be at least of 8 characters"],
-    select: false,
+    // select: false,
   },
 });
 
 // password encryption before saving
-userModel.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
@@ -42,14 +42,14 @@ userModel.pre("save", async function (next) {
 });
 
 // comparing password
-userModel.method.comparePassword = async function (password) {
+userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-userModel.methods.getJWTtoken = async function () {
+userSchema.methods.getJWTtoken = async function () {
   const secret = process.env.JWT_SECRET;
   const expiry_time = process.env.JWT_EXPIRE;
   return jwt.sign({ id: this._id }, secret, { expiresIn: expiry_time });
 };
 
-exports.userModel = mongoose.model("User", userModel);
+exports.userModel = mongoose.model("User", userSchema);
