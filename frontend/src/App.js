@@ -30,7 +30,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/register/user_details" element={<UserDetails />} />
+              <Route path="/user_details" element={<UserDetails />} />
               {msmeRoutes()}
               {serviceproviderRoute()}
               {networkRoute()}

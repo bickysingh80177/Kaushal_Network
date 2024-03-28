@@ -823,13 +823,16 @@ const UserDetails = ({ data = {} }) => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center mt-3 mb-16">
+      <div className="flex flex-col justify-center items-center mt-3 mb-16">
         <button
           className="bg-[#253974] text-white rounded-md px-4 py-2 text-sm p-auto hover:bg-[#3E63DD] lg:w-[12rem]"
           type="submit"
         >
           Submit
         </button>
+        <a href="/" className="mt-4 underline text-xs ">
+          Not Now
+        </a>
       </div>
       <Footer />
     </form>

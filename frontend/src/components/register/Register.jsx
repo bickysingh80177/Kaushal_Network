@@ -6,8 +6,9 @@ import RadioButton from "../common/input/RadioButton";
 import { Link, useNavigate } from "react-router-dom";
 import { enterpriseOptions } from "../../constants/constantOptions";
 import InputBox from "../common/input/InputBox";
-import { useDispatch, useSelector } from "react-redux";
-import authAction from "../../actions/authAction";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../apis/auth";
+import { onUserRegister } from "../../redux/slices/auth/authSlice";
 
 const Register = () => {
   const initialFormState = {
@@ -18,35 +19,23 @@ const Register = () => {
     user_password: "",
     user_password_cnf: "",
   };
-  const { error, loading, isAuthenticated } = useSelector(
-    (state) => state.auth
-  );
-  // const args = useSelector((state) => state.authReducer);
+
   const navigate = useNavigate();
   const [registerData, setRegisterData] = useState(initialFormState);
 
   const dispatch = useDispatch();
-
-  // console.log(args);
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      dispatch(authAction.clearError);
-    }
-    if (isAuthenticated) {
-      navigate("/");
-    }
-  }, [dispatch, error, isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (registerData.user_password !== registerData.user_password_cnf) {
       toast.warning("Passwords do not match");
     } else {
-      dispatch(authAction.userRegistration(registerData));
-      toast.success("Registered successfully");
-      navigate("/register/user_details");
+      const resp = await registerUser(registerData);
+      if (resp) {
+        dispatch(onUserRegister(resp));
+        navigate("/user_details");
+        toast.success("Registered successfully");
+      }
     }
   };
 
@@ -88,7 +77,6 @@ const Register = () => {
             />
             {registerData.user_type === "other" && (
               <InputBox
-                type="password"
                 label="Specify your business type"
                 value={registerData.other_user_type}
                 placeholder="Enter your business type..."

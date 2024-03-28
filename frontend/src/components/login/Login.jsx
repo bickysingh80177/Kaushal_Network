@@ -3,21 +3,33 @@ import React, { useState } from "react";
 import login_art from "../assets/images/login.svg";
 import RadioButton from "../common/input/RadioButton";
 import InputWithoutLabel from "../common/input/InputWithoutLabel";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { enterpriseOptions } from "../../constants/constantOptions";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../apis/auth";
+import { onUserLogin } from "../../redux/slices/auth/authSlice";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const initialFormState = {
-    user_type: "",
+    // user_type: "",
     user_email: "",
     user_password: "",
   };
 
   const [loginData, setLoginData] = useState(initialFormState);
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(loginData);
+    const resp = await loginUser(loginData);
+    if (resp) {
+      dispatch(onUserLogin(resp));
+      navigate("/");
+      toast.success("Logged in successfully!");
+    }
   };
 
   return (
@@ -33,7 +45,7 @@ const Login = () => {
           <h3 className="mb-4 font-semibold text-gray-900">
             Login to your account as:
           </h3>
-          <div className="">
+          {/* <div className="">
             <RadioButton
               value={loginData.user_type}
               name="user_type"
@@ -42,7 +54,7 @@ const Login = () => {
                 setLoginData({ ...loginData, user_type: e.target.value })
               }
             />
-          </div>
+          </div> */}
           <div className="flex flex-col bg-[#abb9ff1a] p-3 rounded-md mt-4 lg:w-1/2 w-[17rem]">
             <InputWithoutLabel
               type="email"

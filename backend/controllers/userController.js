@@ -14,6 +14,12 @@ const userRegistration = catchAsyncError(async (req, res, next) => {
     const email = req.body.user_email;
     const password = req.body.user_password;
 
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .json({ success: false, err: "Invalid email or password" });
+    }
+
     const user = new User({
       user_type,
       other_user_type,
@@ -23,7 +29,22 @@ const userRegistration = catchAsyncError(async (req, res, next) => {
     });
     user.save();
 
-    setToken(user, 201, res);
+    const token = await user.getJWTtoken();
+
+    //   options for token generation
+    const options = {
+      expiresIn: new Date(
+        Date.now() + process.env.JWT_EXPIRE * 24 * 60 * 60 * 1000
+      ),
+      httpOnly: true,
+    };
+
+    res.status(200).cookie("token", token, options).json({
+      success: true,
+      user,
+      token,
+      msg: "Registration successfully done!!",
+    });
   } catch (err) {
     res.status(500).json({ success: false, err: err.message });
   }
@@ -47,7 +68,7 @@ const userLogin = catchAsyncError(async (req, res, next) => {
 
     if (!user) {
       return res
-        .status(40)
+        .status(400)
         .json({ success: false, err: "Invalid Email or Password" });
     }
 
@@ -69,7 +90,6 @@ const userLogin = catchAsyncError(async (req, res, next) => {
         token,
         msg: "Logged in successfully",
       });
-      // setToken(user, 200, res);
     } else {
       return res
         .status(401)

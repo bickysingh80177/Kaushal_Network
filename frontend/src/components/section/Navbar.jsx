@@ -35,8 +35,18 @@ const Navbar = () => {
             <Link to="/service_provider">Service Providers</Link>
             <Link to="/network">Network</Link>
             <Link to="/">Meet Now</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            {!localStorage.getItem("token") && <Link to="/login">Login</Link>}
+            {!localStorage.getItem("token") && (
+              <Link to="/register">Register</Link>
+            )}
+            {localStorage.getItem("token") && (
+              <Link
+                to="/login"
+                onClick={() => localStorage.removeItem("token")}
+              >
+                Logout
+              </Link>
+            )}
           </ul>
         </div>
       </div>
@@ -67,16 +77,30 @@ const Navbar = () => {
       </div>
 
       <div className="lg:flex lg:justify-evenly lg:items-center lg:mr-5 lg:text-sm rounded-2xl lg:gap-3 sm:hidden xs:hidden">
-        <Link to="/login">
-          <button className="bg-[#3094FEB9] p-1 w-20 rounded-lg text-white hover:text-gray-300">
-            Login
-          </button>
-        </Link>
-        <Link to="/register">
-          <button className="bg-[#3094FEB9] p-1 w-20 rounded-lg text-white hover:text-gray-300">
-            Register
-          </button>
-        </Link>
+        {!localStorage.getItem("token") && (
+          <Link to="/login">
+            <button className="bg-[#3094FEB9] p-1 w-20 rounded-lg text-white hover:text-gray-300">
+              Login
+            </button>
+          </Link>
+        )}
+        {!localStorage.getItem("token") && (
+          <Link to="/register">
+            <button className="bg-[#3094FEB9] p-1 w-20 rounded-lg text-white hover:text-gray-300">
+              Register
+            </button>
+          </Link>
+        )}
+        {localStorage.getItem("token") && (
+          <Link to="/login">
+            <button
+              className="bg-[#3094FEB9] p-1 w-20 rounded-lg text-white hover:text-gray-300"
+              onClick={() => localStorage.removeItem("token")}
+            >
+              Logout
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
