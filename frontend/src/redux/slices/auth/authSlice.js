@@ -9,7 +9,11 @@ const authSlice = createSlice({
   },
   reducers: {
     onUserLogin(state, action) {
-      console.log(action);
+      state.isAuthenticated = true;
+      state.token = action.payload.token;
+      localStorage.setItem("token", action.payload.token);
+    },
+    onUserRegister(state, action) {
       state.isAuthenticated = true;
       state.token = action.payload.token;
       localStorage.setItem("token", action.payload.token);
@@ -22,6 +26,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { onUserLogin, onUserLogout } = authSlice.actions;
+export const { onUserLogin, onUserRegister, onUserLogout } = authSlice.actions;
 
 export default authSlice.reducer;
